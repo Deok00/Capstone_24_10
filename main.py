@@ -194,15 +194,3 @@ class ESPTCPServer:
             client_socket, client_address = self.server_socket.accept()
             client_thread = threading.Thread(target=self.handle_client, args=(client_socket, client_address))
             client_thread.start()
-
-if __name__ == "__main__":
-    work_list = []
-    list_lock = threading.Lock()
-
-    server1 = ESPTCPServer('0.0.0.0', 33819, AIspeakerAudioSender, work_list, list_lock)
-    server1_thread = threading.Thread(target=server1.start)
-    server1_thread.start()
-
-    server2 = ESPTCPServer('0.0.0.0', 33823, AIspeakerAudioReciver, work_list, list_lock)
-    server2_thread = threading.Thread(target=server2.start)
-    server2_thread.start()
